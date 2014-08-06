@@ -24,7 +24,22 @@ void ioread(){
 	}
 }
 
-int main(int argc, char *argv[]) {
+void stdcopy(){
+	int c;
+	while ( (c = getc(stdin)) != EOF ){
+		if ( putc(c,stdout) == EOF ){
+			fprintf(stderr,"write error\n");
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	if ( ferror(stdin) ){
+		fprintf(stderr,"read error\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void lsdir(int argc,char *argv[]){
 	DIR *dp;
 	struct dirent *dirp;
 
@@ -41,9 +56,13 @@ int main(int argc, char *argv[]) {
 	}
 	closedir(dp);
 
-	printf("Hello Eclipse C");
+}
+int main(int argc, char *argv[]) {
 
-	ioread();
+	//printf("Hello C\n");
+	//lsdir(argc,argv);
+	//ioread();
+	stdcopy();
 	return 0;
 }
 
