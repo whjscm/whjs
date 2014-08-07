@@ -57,12 +57,17 @@ void lsdir(int argc,char *argv[]){
 	closedir(dp);
 
 }
+
+void processid(){
+	printf("process id %ld\n",(long)getpid());
+}
 int main(int argc, char *argv[]) {
 
 	//printf("Hello C\n");
 	//lsdir(argc,argv);
 	//ioread();
-	stdcopy();
+	//stdcopy();
+	processid();
 	return 0;
 }
 
