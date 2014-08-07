@@ -4,8 +4,11 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#include <error.h>
+#include <sys/wait.h>
 
 #define BUFSIZE 512
+#define MAXLINE 4096
 
 void ioread(){
 	int n;
@@ -61,13 +64,40 @@ void lsdir(int argc,char *argv[]){
 void processid(){
 	printf("process id %ld\n",(long)getpid());
 }
+
+void execwait(){
+	char buf[MAXLINE];
+	pid_t pid;
+	int status;
+
+	printf("%%");
+	while ( fgets(buf,MAXLINE,stdin) != NULL){
+		if ( buf[strlen(buf)-1] == '\n'){
+			buf[strlen(buf)-1] = 0;
+		}
+		if ( ( pid = fork()) < 0 ){
+			fprintf(stderr,"%s\n","fock error");
+			exit(EXIT_FAILURE);
+		}
+		if ( pid == 0 ){
+			execlp(buf,buf,(char *)0);
+			fprintf(stderr,"count exec proc %s",strerror(errno));
+			exit(127);
+		}
+
+		waitpid(pid,&status,0);
+		printf("%%");
+	}
+
+}
 int main(int argc, char *argv[]) {
 
 	//printf("Hello C\n");
 	//lsdir(argc,argv);
 	//ioread();
 	//stdcopy();
-	processid();
+	//processid();
+	execwait();
 	return 0;
 }
 
