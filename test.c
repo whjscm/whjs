@@ -90,6 +90,16 @@ void execwait(){
 	}
 
 }
+
+void testerr(char *argv[]){
+	fprintf(stderr,"%s\n",strerror(EACCES));
+	errno = ENOENT;
+	perror(argv[0]);
+}
+
+void testuser(){
+	printf("%d \t %d\n",getuid(),getpid());
+}
 int main(int argc, char *argv[]) {
 
 	//printf("Hello C\n");
@@ -97,7 +107,9 @@ int main(int argc, char *argv[]) {
 	//ioread();
 	//stdcopy();
 	//processid();
-	execwait();
+	//execwait();
+	//testerr(argv);
+	testuser();
 	return 0;
 }
 
