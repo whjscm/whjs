@@ -100,6 +100,10 @@ void testerr(char *argv[]){
 void testuser(){
 	printf("%d \t %d\n",getuid(),getpid());
 }
+
+void testsysconfg(){
+	printf("%ld\n",sysconf(_SC_CLK_TCK));
+}
 int main(int argc, char *argv[]) {
 
 	//printf("Hello C\n");
@@ -109,7 +113,8 @@ int main(int argc, char *argv[]) {
 	//processid();
 	//execwait();
 	//testerr(argv);
-	testuser();
+	//testuser();
+	testsysconfg();
 	return 0;
 }
 
